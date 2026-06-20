@@ -1,12 +1,12 @@
 /* ===================================================================
    STATE
    =================================================================== */
-let currentIndex = 0;
+let currentIndex = -1; // -1 = nothing picked yet
 let isPlaying = false;
 let isShuffle = false;
 let repeatMode = "off"; // "off" | "all" | "one"
 let activeSearchQuery = "";
-let activeMood = songCategories[0].id; // which mood tab is currently shown
+let activeMood = null; // null = no mood picked yet, nothing should render
 
 // Which list next/prev should advance through: the song's own mood category,
 // or — if it was started from My Playlist — the favorites list instead.
@@ -91,6 +91,8 @@ const searchInput = document.getElementById("searchInput");
 const npTitle = document.getElementById("np-title");
 const npArtist = document.getElementById("np-artist");
 const art = document.getElementById("art");
+const artWrap = document.getElementById("artWrap");
+const artEmptyState = document.getElementById("artEmptyState");
 const currentTimeEl = document.getElementById("currentTime");
 const durationEl = document.getElementById("duration");
 const scrubber = document.getElementById("scrubber");
@@ -128,10 +130,18 @@ function buildWaveform(seed) {
 /* ===================================================================
    RENDER MOOD PILLS (tabs — only one mood visible at a time)
    =================================================================== */
+const MOOD_ICONS = {
+  rock: "&#127928;",       // 🎸
+  sad: "&#127783;&#65039;", // 🌧️
+  romantic: "&#128157;"     // 💕
+};
+
 function renderMoodPills() {
   const categoryPills = songCategories.map(cat => `
-    <button class="mood-pill${cat.id === activeMood ? " is-active" : ""}" data-mood="${cat.id}" style="--pill-accent: ${cat.accent}">
-      ${cat.label}
+    <button class="mood-card${cat.id === activeMood ? " is-active" : ""}" data-mood="${cat.id}" style="--card-accent: ${cat.accent}">
+      <span class="mood-card-icon">${cat.icon || MOOD_ICONS[cat.id] || "&#127925;"}</span>
+      <span class="mood-card-label">${cat.label}</span>
+      <span class="mood-card-tagline">${cat.tagline || ""}</span>
     </button>
   `).join("");
 
@@ -142,9 +152,9 @@ function renderMoodPills() {
     </button>
   `;
 
-  moodPills.innerHTML = categoryPills + myPlaylistPill;
+  moodPills.innerHTML = `<div class="mood-cards">${categoryPills}</div>${myPlaylistPill}`;
 
-  moodPills.querySelectorAll(".mood-pill").forEach(pill => {
+  moodPills.querySelectorAll(".mood-card, .mood-pill").forEach(pill => {
     pill.addEventListener("click", () => {
       activeMood = pill.dataset.mood;
       renderMoodPills();
@@ -171,6 +181,16 @@ function matchesSearch(song) {
 
 function renderCategorySections() {
   categorySections.innerHTML = "";
+
+  // Home state: nothing picked yet — show a prompt instead of any song list
+  if (activeMood === null) {
+    categorySections.innerHTML = `
+      <div class="mood-home-prompt">
+        <p>Choose Rock, Sad, or Romantic above to see those songs.</p>
+      </div>
+    `;
+    return;
+  }
 
   // Special case: "My Playlist" — built from this visitor's saved favorites
   if (activeMood === "myPlaylist") {
@@ -315,6 +335,8 @@ function loadTrack(index) {
   const song = songs[index];
   audio.src = song.file;
 
+  artEmptyState.style.display = "none";
+  art.style.display = "block";
   art.classList.add("is-loading");
   const newArt = new Image();
   newArt.onload = () => {
@@ -337,13 +359,13 @@ function loadTrack(index) {
   renderCategorySections();
 }
 
-function displayTrackInfo(index) {
-  const song = songs[index];
-  npTitle.textContent = song.title;
-  npArtist.textContent = song.artist;
-  art.src = song.cover;
-  art.onerror = () => { art.src = "covers/placeholder.jpg"; };
-  buildWaveform(index + 1);
+function showEmptyNowPlaying() {
+  npTitle.textContent = "Select a track";
+  npArtist.textContent = "—";
+  art.style.display = "none";
+  artEmptyState.style.display = "flex";
+  waveform.innerHTML = "";
+  progressMask.innerHTML = "";
 }
 
 function playTrack() {
@@ -367,6 +389,10 @@ function pauseTrack() {
 }
 
 function togglePlay() {
+  if (currentIndex === -1) {
+    // nothing picked yet — the play button on its own shouldn't start anything
+    return;
+  }
   if (!audio.src) {
     loadTrack(currentIndex);
   }
@@ -494,4 +520,4 @@ searchInput.addEventListener("input", (e) => {
 audio.volume = parseFloat(volumeSlider.value);
 renderMoodPills();
 renderCategorySections();
-displayTrackInfo(0);
+showEmptyNowPlaying();

@@ -22,8 +22,12 @@
     <section class="now-playing">
       <p class="eyebrow">Currently Playing</p>
 
-      <div class="art-wrap">
-        <img id="art" class="cover" src="covers/placeholder.jpg" alt="Album art" />
+      <div class="art-wrap" id="artWrap">
+        <img id="art" class="cover" src="covers/placeholder.jpg" alt="Album art" style="display:none;" />
+        <div class="art-empty-state" id="artEmptyState">
+          <img src="covers/profile.avif" alt="Dil Beats logo" class="empty-state-logo" onerror="this.style.display='none'" />
+          <p>Pick a mood, then tap a song</p>
+        </div>
       </div>
 
       <h1 id="np-title" class="np-title">Select a track</h1>
@@ -92,7 +96,7 @@
 
   <footer class="site-footer">
     <p>Made with care by Zuha · A personal playlist project</p>
-    
+     
   </footer>
 
   <audio id="audio" preload="metadata"></audio>

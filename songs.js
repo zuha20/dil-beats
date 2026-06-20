@@ -28,10 +28,11 @@ const songCategories = [
   {
     id: "rock",
     label: "Rock",
-    tagline: "Loud, fast, no apologies",
+    tagline: "",
     accent: "#F08FB0",
   songs: [
       { file: "songs/rock7.mp3", cover: "covers/rock2.png", title: "Galat Baat hai", artist: "Arijit Singh" },
+      { file: "songs/rock14.mp3", cover: "covers/rock14.png", title: "Nain tere Chain mere", artist: "Shubh" },
       { file: "songs/rock5.mp3", cover: "covers/rock5.png", title: "Daaru Badnam", artist: "Param Singh" },
       { file: "songs/rock6.mp3", cover: "covers/rock6.png", title: "Nashe se Chad gyi", artist: "Arijit Singh" },
       { file: "songs/rock8.mp3", cover: "covers/rock8.png", title: "AnarKali", artist: "Mamta Sharma" },
@@ -54,15 +55,17 @@ const songCategories = [
   {
     id: "sad",
     label: "Sad",
-    tagline: "For the quiet, heavy days",
+     tagline: "",
     accent: "#C97B98",
     songs: [
+      { file: "songs/sad22.mp3", cover: "covers/sad22.png", title: "Ishq Mubarak", artist: "Arjit singh" },
+      { file: "songs/sad23.mp3", cover: "covers/sad23.png", title: "Dil e Umeed", artist: "Asif Ali Khan" },
       { file: "songs/sad1.mp3", cover: "covers/sad1.png", title: "Udaariyaan", artist: "Sartinder Sartaaj" },
       { file: "songs/sad2.mp3", cover: "covers/sad2.png", title: "Ik Mulakaat", artist: "Arushmaan khurana" },
       { file: "songs/sad3.mp3", cover: "covers/sad3.png", title: "Hayee Mera Dil", artist: "YO YO Honey Singh" },
       { file: "songs/sad4.mp3", cover: "covers/sad4.png", title: "Ham bhool gye", artist: "Sawaan Kumar" },
       { file: "songs/sad5.mp3", cover: "covers/sad5.png", title: "Zarori Tha", artist: "Rahet Fateh Ali Khan" },
-       
+      { file: "songs/sad24.mp3", cover: "covers/sad24.png", title: "Mere Rashke Qamar", artist: "Nusrat Fateh Ali Khan" },
       { file: "songs/sad9.mp3", cover: "covers/sad9.png", title: "Tu hi Haqeeqat", artist: "Javed Ali" },
       { file: "songs/sad10.mp3", cover: "covers/sad10.png", title: "Bewafa", artist: "Imran Khan" },
       { file: "songs/sad11.mp3", cover: "covers/sad11.png", title: "Tum hi ho", artist: "Arjit Singh" },
@@ -79,7 +82,9 @@ const songCategories = [
       { file: "songs/sad21.mp3", cover: "covers/sad21.png", title: "Maula Mere Maula", artist: "Roopkumar Rathod" },
       { file: "songs/sad6.mp3", cover: "covers/sad6.png", title: "Do Pal", artist: "Lata Mangeshukar" },
       { file: "songs/sad7.mp3", cover: "covers/sad7.png", title: "Paar Chanade", artist: "Shilpa Rao" },
-      { file: "songs/sad8.mp3", cover: "covers/sad8.png", title: "Tu jane na", artist: "Atif Aslam" }
+      { file: "songs/sad8.mp3", cover: "covers/sad8.png", title: "Tu jane na", artist: "Atif Aslam" },
+       
+      
 
 
     ]
@@ -87,12 +92,13 @@ const songCategories = [
   {
     id: "romantic",
     label: "Romantic",
-    tagline: "Soft songs for soft moments",
+    tagline: "",
     accent: "#F2A6C2",
    songs: [
+      { file: "songs/romantic3.mp3", cover: "covers/romantic3.png", title: "Jeene laga hoon", artist: "Atif Aslam" },
       { file: "songs/romantic1.mp3", cover: "covers/romantic1.png", title: "Duji vari pyar", artist: "Sunanda Sharma" },
       { file: "songs/romantic2.mp3", cover: "covers/romantic2.png", title: "Aj se teri", artist: "PadMan" },
-      { file: "songs/romantic3.mp3", cover: "covers/romantic3.png", title: "Jeene laga hoon", artist: "Atif Aslam" },
+    
       { file: "songs/romantic4.mp3", cover: "covers/romantic4.png", title: "Sheesha", artist: "Mitta Ror" },
       { file: "songs/romantic5.mp3", cover: "covers/romantic5.png", title: "Sajan Raazi", artist: "Sartinder Sartaaj" },
       { file: "songs/romantic6.mp3", cover: "covers/romantic6.png", title: "Fakira", artist: "sonam Puri" },
